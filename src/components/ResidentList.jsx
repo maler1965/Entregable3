@@ -21,13 +21,16 @@ const ResidentList = ({ residents }) => {
                 }
             </section>
 
-            {/*Paginacion    */}
+            {/*Paginacion   */}
+
             <section className="flex justify-center gap-4 flex-wrap pb-8">
-                {
-                    pages.map(page =>
-                        <button key={page} onClick={() => setCurrentPage(page)} className="bg-green-700 p-2 px-3 rounded-md" > {page} </button>)
-                }
+                {pages.map((page) => (
+                    <button
+                        key={page} onClick={() => setCurrentPage(page)}
+                        className={`p-2 px-3 rounded-md ${currentPage === page ? 'bg-green-300' : 'bg-green-700'
+                            }`} > {page}</button>))}
             </section>
+
 
         </section>
 
