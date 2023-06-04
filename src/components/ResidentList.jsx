@@ -1,15 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Resident from "./Resident"
 import { paginationLogic } from "../util/pagination"
 
+const FIRST_PAGE = 1
 
+const ResidentList = ({ residents, location }) => {
 
-const ResidentList = ({ residents }) => {
-
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(FIRST_PAGE)
 
     const { pages, residentsInPage } = paginationLogic(currentPage, residents)
 
+    useEffect(() => {
+        setCurrentPage(FIRST_PAGE)
+    }, [location])
 
 
     return (
@@ -27,7 +30,7 @@ const ResidentList = ({ residents }) => {
                 {pages.map((page) => (
                     <button
                         key={page} onClick={() => setCurrentPage(page)}
-                        className={`p-2 px-3 rounded-md ${currentPage === page ? 'bg-green-300' : 'bg-green-700'
+                        className={`p-2 px-3 rounded-md ${currentPage === page ? 'bg-green-300 text-black' : 'bg-green-700'
                             }`} > {page}</button>))}
             </section>
 

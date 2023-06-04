@@ -4,6 +4,11 @@ import axios from 'axios'
 const Resident = ({ residentUrl }) => {
     const [residentInfo, setResidentInfo] = useState(null)
 
+    const statusStyles = {
+        "Alive": "bg-green-500",
+        "Dead": "bg-red-500",
+        "unknown": "bg-gray-500"
+    }
 
     useEffect(() => {
         axios.get(residentUrl)
@@ -12,7 +17,7 @@ const Resident = ({ residentUrl }) => {
     }, [])
 
 
-    //align-items:_flex-end
+    //align-items:_flex-end            
 
 
     return (
@@ -22,9 +27,9 @@ const Resident = ({ residentUrl }) => {
             <div className='relative'>
                 <img className='rounded-md' src={residentInfo?.image} alt="" />
 
-                <div className='flex items-center rounded-md gap-2 bg-red-500/70 p-2 absolute bottom-3 left-[50%] -translate-x-1/2'>
-                    <div className='h-3 aspect-square bg-green-500 rounded-full'></div>
-                    Dead
+                <div className='flex items-center rounded-md gap-2 bg-blue-300/70 p-2 absolute bottom-3 left-[50%] -translate-x-1/2'>
+                    <div className={`h-3 aspect-square ${statusStyles[residentInfo?.status]} rounded-full`}></div>
+                    {residentInfo?.status}
                 </div>
             </div>
 

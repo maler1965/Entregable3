@@ -20,12 +20,11 @@ function App() {
       .catch((err) => console.log(err))
   }, [])
 
-  console.log(location)
 
   return (
     <main className='bg-black min-h-screen text-white '  >
       <Location location={location} setLocation={setLocation} />
-      <ResidentList residents={location?.residents} />
+      <ResidentList location={location} residents={location?.residents} />
 
     </main>
   )

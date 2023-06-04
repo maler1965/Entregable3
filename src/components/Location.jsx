@@ -33,7 +33,6 @@ const Location = ({ location, setLocation }) => {
 
         const newLocation = e.target.newLocation.value;
 
-        //if (newLocation === "") return setCity(null)  
         const URL = `https://rickandmortyapi.com/api/location/${newLocation}`
 
         axios
@@ -42,7 +41,6 @@ const Location = ({ location, setLocation }) => {
             .catch((err) => console.log(err));
     };
 
-    //style={{ backgroundColor: 'blue/70' }}
 
     return (
         <section  >
