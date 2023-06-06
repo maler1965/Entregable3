@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
+
+
 const Resident = ({ residentUrl }) => {
     const [residentInfo, setResidentInfo] = useState(null)
 
@@ -24,6 +26,8 @@ const Resident = ({ residentUrl }) => {
 
 
         <article>
+
+
             <div className='relative'>
                 <img className='rounded-md' src={residentInfo?.image} alt="" />
 
@@ -43,6 +47,8 @@ const Resident = ({ residentUrl }) => {
                     <li> Times apper:  <span>{residentInfo?.episode.length} </span>  </li>
                 </ul>
             </section>
+
+
         </article>
 
 

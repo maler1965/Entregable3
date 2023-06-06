@@ -5,6 +5,7 @@ import axios from 'axios'
 import Location from './components/Location'
 import ResidentList from './components/ResidentList'
 import { getRandomIndex } from './util/random'
+import Loader from './components/Loader'
 
 
 
@@ -23,8 +24,11 @@ function App() {
 
   return (
     <main className='bg-black min-h-screen text-white '  >
-      <Location location={location} setLocation={setLocation} />
-      <ResidentList location={location} residents={location?.residents} />
+      {location ? <Location location={location} setLocation={setLocation} /> : <Loader />}
+
+      {location ? <ResidentList location={location} residents={location?.residents} /> : <Loader />}
+
+
 
     </main>
   )
