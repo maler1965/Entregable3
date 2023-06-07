@@ -150,10 +150,9 @@ const Location = ({ location, setLocation }) => {
                     </div>
                 </div>
 
-                <div className='  flex justify-center items-center rounded-md ' >
+
+                <div className='  flex justify-center items-center rounded-md top-0 left-0 z-10 ' >
                     <ul>
-
-
                         <div className=' text-black px-2 rounded-md absolute flex justify-center items-center left-[50%] -translate-x-1/2'>
                             <li  >
                                 {suggestions.map((suggestion) => (
