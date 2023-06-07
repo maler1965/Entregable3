@@ -24,11 +24,9 @@ function App() {
 
   return (
     <main className='bg-black min-h-screen text-white '  >
-      {location ? <Location location={location} setLocation={setLocation} /> : <Loader />}
+      {location ? <Location setLocation={setLocation} /> : <Loader />}
 
-      {location ? <ResidentList location={location} residents={location?.residents} /> : <Loader />}
-
-
+      {location ? <ResidentList location={location} setLocation={setLocation} residents={location?.residents} /> : <Loader />}
 
     </main>
   )

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import Resident from "./Resident"
 import { paginationLogic } from "../util/pagination"
+import Suggestion from "./Suggestion"
 
 const FIRST_PAGE = 1
 
-const ResidentList = ({ residents, location }) => {
+const ResidentList = ({ residents, location, setLocation }) => {
 
     const [currentPage, setCurrentPage] = useState(FIRST_PAGE)
 
@@ -16,13 +17,20 @@ const ResidentList = ({ residents, location }) => {
 
 
     return (
-        <section className="px-3">
+        <section >
+            <section >
 
-            <section className="grid gap-8 grid-cols-[repeat(auto-fill,_280px)] justify-center max-w-[1024px] mx-auto py-6">
-                {residentsInPage?.map((resident) =>
-                    <Resident key={resident} residentUrl={resident} />)
-                }
+                <div className=' justify-center items-center     ' >
+                    {location ? <Suggestion location={location} setLocation={setLocation} /> : <Loader />}
+                </div>
+
+                <section className=" z-0 grid gap-8 grid-cols-[repeat(auto-fill,_280px)] justify-center max-w-[1024px] mx-auto py-6">
+                    {residentsInPage?.map((resident) =>
+                        <Resident key={resident} residentUrl={resident} />)
+                    }
+                </section>
             </section>
+
 
             {/*Paginacion   */}
 
