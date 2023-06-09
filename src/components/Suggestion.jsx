@@ -38,12 +38,7 @@ const Suggestion = ({ location, setLocation }) => {
             let resultsTotal = []
             let resultsTotalNum = 0
             resultsTotalNum = resultsTotal.push(results[0].name)
-
-            console.log('total name  ' + resultsTotal)
-
             opcionNameNum = opcionName.unshift(resultsTotal)
-
-            console.log('opcionNameA1  ' + resultsTotal)
             setSuggestions(resultsTotal)
         }
     }, [dataApi])
@@ -64,13 +59,11 @@ const Suggestion = ({ location, setLocation }) => {
 
     const handleChangeInput = (e) => {
         let textIn = e.target.value
-        console.log('names1 ' + e.target.value)
         setText(textIn)
     }
 
 
     const handleSuggestionClick = (suggestion) => {
-        console.log('names3 ' + suggestion)
         setText('');
         setSuggestions([])
         const URL2 = `https://rickandmortyapi.com/api/character/?name=${suggestion}`
