@@ -1,82 +1,76 @@
 //===========
 import axios from 'axios'
-import image1 from "/images/img1.webp";
-import image2 from "/images/img2.webp";
-import image3 from "/images/th.jpeg";
-import image4 from "/images/img3.avif";
-import image5 from "/images/img4.jpg";
-import image7 from "/images/img6.jpg";
 import { useEffect, useState } from "react";
 
-let specificProperty = []
-let totalSuggestionsUrl = []
-let numTotalSuggestionsUrl = []
-let Names = [' ']
-//=================
 
 const Suggestion = ({ location, setLocation }) => {
 
-
-    const [randomImage, setRandomImage] = useState(image1)
     const [suggestions, setSuggestions] = useState([]);
+    const [dataApi, setDataApi] = useState()
+    const [isClicked, setIsClicked] = useState(false);
     const [text, setText] = useState()
+    let specificProperty = []
+    let totalSuggestionsUrl = []
+    var numTotalSuggestionsUrl = []
 
-    const images = [image2, image3, image1, image4, image5, image7];
-    var opcionName = ['Attila Starwar', 'Abadango Cluster Princess', 'Arthricia', 'Crocubot', 'Tuberculosis']
+    var opcionName = []
+    var opcionNameNum = 0
 
-
-    useEffect(() => {
-        if (setLocation) {
-            const randomImageIndex = Math.floor(Math.random() * images.length); //
-            const randomImg = images[randomImageIndex];
-            setRandomImage(randomImg);
-        }
-    }, [setLocation])
-
+    const handleClick = () => {
+        setIsClicked(true);
+    };
 
 
     useEffect(() => {
         if (text) {
-            const searchTerm = text;
-            let results = [];
-            let resultsNum = [];
-            let count2 = 0
-
-            opcionName.forEach(name => {
-                if (name.includes(searchTerm)) {
-                    resultsNum = results.unshift(name)
-                    Names = results
-                    count2 = 1
-                }
-            });
-
-            if (Names) {
-                Names = opcionName
-            }
-
-            let num = []
-
-            if (count2 === 0) {
-                num = results.unshift('No hay coincidencias, Intenta con estas: ')
-                Names.unshift(results)
-            }
-
-            setSuggestions(Names);
-
-        } else {
-            setSuggestions([]);
+            const URL1 = `https://rickandmortyapi.com/api/character/?name=${text}`
+            axios
+                .get(URL1)
+                .then(({ data }) => setDataApi(data))
+                .catch((err) => console.log(err));
         }
+    }, [text])
 
-    }, [text]);
+
+    useEffect(() => {
+        if (dataApi) {
+            const results = dataApi.results
+            let resultsTotal = []
+            let resultsTotalNum = 0
+            resultsTotalNum = resultsTotal.push(results[0].name)
+
+            console.log('total name  ' + resultsTotal)
+
+            opcionNameNum = opcionName.unshift(resultsTotal)
+
+            console.log('opcionNameA1  ' + resultsTotal)
+            setSuggestions(resultsTotal)
+        }
+    }, [dataApi])
+
+
+    useEffect(() => {
+        if (isClicked) {
+            if (opcionNameNum === 0) {
+                let initText = "Bienvenido a tu primer busqueda"
+                opcionNameNum = opcionName.unshift(initText)
+                setSuggestions(opcionName)
+            } else {
+                setSuggestions(opcionName);
+            }
+        }
+    }, [isClicked])
 
 
     const handleChangeInput = (e) => {
         let textIn = e.target.value
+        console.log('names1 ' + e.target.value)
         setText(textIn)
     }
 
 
     const handleSuggestionClick = (suggestion) => {
+        console.log('names3 ' + suggestion)
         setText('');
         setSuggestions([])
         const URL2 = `https://rickandmortyapi.com/api/character/?name=${suggestion}`
@@ -106,19 +100,16 @@ const Suggestion = ({ location, setLocation }) => {
 
             <section >
 
-                <div className="flex justify-center items-center  overflow-hidden p-2 " style={{
-                    backgroundImage: `url(${randomImage})`,
-                    backgroundSize: 'object-contain',
-                    backgroundPosition: 'center',
-                }}>
-                    <div className="flex  rounded-md overflow-hidden ">
+                <div className="flex justify-center items-center  p-2" >
+                    <div className="flex margin-botton  ">
                         <input
+                            onClick={handleClick}
                             placeholder="type a Name..."
                             onChange={handleChangeInput} value={text}
                             type="text"
-                            className="text-black outline-none px-2"
+                            className="text-white bg-black border border-green-300 text-sm outline-none px-2"
                         />
-                        <button onClick={() => handleSuggestionClick(text)} className="bg-red-500  hover:bg-blue-400 p-2"> Search <i className='bx bx-search-alt'></i></button>
+                        <button onClick={() => handleSuggestionClick(text)} className="bg-green-700  hover:bg-green-300 border border-green-300 text-sm px-5 p-1 "> Search <i className='bx bx-search-alt px-2'></i></button>
                     </div>
                 </div>
 
@@ -127,7 +118,7 @@ const Suggestion = ({ location, setLocation }) => {
                     <ul >
                         <div className=' text-black px-2 rounded-md absolute  z-10 pb-2 flex justify-center items-center left-[50%] -translate-x-1/2'>
                             <li >
-                                {suggestions.map((suggestion) => (
+                                {suggestions?.map((suggestion) => (
                                     <li className='bg-white px-2  ' absolute key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
                                         {suggestion}
                                     </li>))}
@@ -139,14 +130,14 @@ const Suggestion = ({ location, setLocation }) => {
             </section>
 
 
-            <section className=' justify-center items-center bg-gradient-to-b text-black from-blue-400 to-white'  >
-                <h2 className="flex justify-center items-center text-[30px] ">{location?.name}</h2>
-                <ul className='  flex justify-center items-center gap-3'>
-                    <li className='capitalize p-3 text-blue-800' >type: {location?.type} </li>
-                    <li className='capitalize p-3  text-blue-800'>dimension: {location?.dimension}</li>
-                    <li className='capitalize p-3 text-blue-800'>population: {location?.residents.length}</li>
-                </ul>
-            </section>
+            <div>
+                <h1 className='text-green-300 flex justify-center items-center'> !Wellcome to the crazy universe!</h1>
+
+                <h2 className="text-green-300 flex justify-center items-center ">{location?.name}</h2>
+                <h2 className="text-green-300 flex justify-center items-center ">poblacion: {location?.residents.length}</h2>
+
+
+            </div>
 
         </section>
 

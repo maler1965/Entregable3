@@ -1,30 +1,8 @@
 
 import axios from 'axios'
-import image1 from "/images/img1.webp";
-import image2 from "/images/img2.webp";
-import image3 from "/images/th.jpeg";
-import image4 from "/images/img3.avif";
-import image5 from "/images/img4.jpg";
-import image6 from "/images/img5.jpg";
-import image7 from "/images/img6.jpg";
-import { useEffect, useState } from 'react';
-
+import imageHeader from "/images/bgHeader.png";
 
 const Location = ({ setLocation }) => {
-
-    const [randomImage, setRandomImage] = useState(image1)
-    const images = [image2, image3, image1, image4, image5, image6, image7];
-
-
-    useEffect(() => {
-        if (setLocation) {
-            const randomImageIndex = Math.floor(Math.random() * images.length);
-            const randomImg = images[randomImageIndex];
-            setRandomImage(randomImg);
-        }
-    }, [setLocation])
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,24 +19,25 @@ const Location = ({ setLocation }) => {
     };
 
 
-
     return (
         <section  >
 
-            <form onSubmit={handleSubmit} className="flex justify-center items-center rounded-md overflow-hidden p-2 " style={{
-                backgroundImage: `url(${randomImage})`,
+            <div className="flex justify-center items-center  overflow-hidden  " style={{
+                backgroundImage: `url(${imageHeader})`,
                 backgroundSize: 'object-contain',
                 backgroundPosition: 'center',
-            }} >
+            }}>
+            </div>
 
-                <div className="flex  rounded-md overflow-hidden  ">
+            <form onSubmit={handleSubmit} className="flex justify-center items-center rounded-md  p-2 "  >
+                <div >
                     <input
                         id="newLocation"
                         type="text"
                         placeholder="type a location id..."
-                        className="text-black outline-none px-2"
+                        className="text-white bg-black border border-green-300 text-sm outline-none px-2"
                     />
-                    <button className="bg-blue-400  hover:bg-red-500 p-2"> Search <i className='bx bx-search-alt'></i></button>
+                    <button className="bg-green-700  hover:bg-green-300 text-sm p-1 px-5 border border-green-300 "> Search <i className='bx bx-search-alt px-2'></i></button>
                 </div>
             </form>
 
